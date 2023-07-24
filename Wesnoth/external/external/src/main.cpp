@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <iostream>
 
 int main(int argc, char** argv) {
 	HWND wesnoth_window = FindWindow(NULL, L"The Battle for Wesnoth - 1.14.9");
@@ -22,9 +23,15 @@ int main(int argc, char** argv) {
 
 	gold_value += 4;
 
-	DWORD new_gold_value = 9999;
+	DWORD new_gold_value = 100;
 	DWORD bytes_written = 0;
 
-	WriteProcessMemory(wesnoth_process, (void*)gold_value, &new_gold_value, 4, &bytes_written);
+	while (1)
+	{
+		std::cout << "Please enter the new value for your gold: ";
+		std::cin >> new_gold_value;
+
+		WriteProcessMemory(wesnoth_process, (void*)gold_value, &new_gold_value, 4, &bytes_written);
+	}
 	return 0;
 }
